@@ -3,233 +3,293 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UIU Academic Reminders</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<title>Pip's UIU Reminders</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#f3f6fa; --card:#ffffff; --ink:#13203a; --muted:#5d6b82; --line:#dde4ee;
-  --fee:#b45309; --exam:#6d28d9; --deadline:#be123c; --class:#0369a1; --holiday:#15803d;
-  --hero:#13203a; --hero-ink:#ffffff;
-  --head:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
-  --body:'Source Sans 3','Segoe UI',system-ui,sans-serif;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#0c1424; --card:#14203a; --ink:#e8eef9; --muted:#93a3bf; --line:#24334f;
-    --fee:#fbbf24; --exam:#a78bfa; --deadline:#fb7185; --class:#38bdf8; --holiday:#4ade80;
-    --hero:#1d2f57; --hero-ink:#ffffff;
-  }
-}
+:root{--bg:#fff7e0;--card:#fff;--ink:#3b2a14;--muted:#7a6a52;--line:#f0dfb4;--hero:#ffb703;--heroink:#3b2a14;--acc:#fb8500;
+--fee:#d97706;--exam:#7c3aed;--deadline:#e11d48;--class:#0284c7;--holiday:#16a34a;
+--h:'Baloo 2','Trebuchet MS',system-ui,sans-serif;--b:'Nunito','Segoe UI',system-ui,sans-serif}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 var(--body);padding:0 0 48px}
-.wrap{max-width:640px;margin:0 auto;padding:0 16px}
-header{padding:22px 0 6px}
-header h1{font:800 22px/1.1 var(--head);margin:0}
-header p{margin:4px 0 0;color:var(--muted);font-size:15px}
-
-/* hero */
-.hero{background:var(--hero);color:var(--hero-ink);border-radius:20px;padding:22px 20px 20px;margin:14px 0 8px}
-.hero small{display:block;font-size:15px;opacity:.75;margin-bottom:6px}
-.hero .when{font:800 44px/1 var(--head);letter-spacing:-.02em;margin:0 0 8px}
-.hero .what{font:700 20px/1.25 var(--head);margin:0}
-.hero .sub{margin:8px 0 0;font-size:15px;opacity:.8}
-.hero.calm .when{font-size:30px}
-
-.alerts{display:grid;gap:8px;margin:10px 0 4px}
-.alert{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:12px;padding:10px 12px}
-.alert b{font:700 16px var(--head)}
-.alert span{display:block;color:var(--muted);font-size:15px}
-
-.chips{display:flex;gap:8px;overflow-x:auto;padding:14px 0 6px;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 14px;font:600 15px var(--body);cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.chip:focus-visible,.item button:focus-visible,summary:focus-visible{outline:3px solid var(--class);outline-offset:2px}
-
-h2{font:700 15px var(--head);color:var(--muted);margin:22px 0 8px;letter-spacing:.01em}
-.list{display:grid;gap:8px}
-.item{display:grid;grid-template-columns:58px 1fr auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
-.date{text-align:center;border-right:3px solid var(--c);padding-right:10px;line-height:1.05}
-.date b{display:block;font:800 22px var(--head)}
-.date i{font-style:normal;font-size:13px;color:var(--muted)}
-.title{font-weight:600;line-height:1.3}
-.meta{font-size:14px;color:var(--muted);margin-top:2px}
-.meta em{font-style:normal;color:var(--c);font-weight:600}
-.item button{border:1.5px solid var(--line);background:transparent;width:34px;height:34px;border-radius:50%;cursor:pointer;color:var(--muted);font-size:16px;line-height:1}
-.item.done{opacity:.5}
-.item.done .title{text-decoration:line-through}
-.item.done button{background:var(--holiday);border-color:var(--holiday);color:#fff}
-.item.soft{background:transparent}
-.empty{color:var(--muted);padding:8px 2px}
-details summary{cursor:pointer;color:var(--muted);font:700 15px var(--head);margin:22px 0 8px}
-footer{color:var(--muted);font-size:13px;margin-top:28px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 var(--b);padding-bottom:60px;transition:background .3s}
+.wrap{max-width:640px;margin:0 auto;padding:0 14px}
+#bar{position:sticky;top:0;z-index:20;background:var(--acc);color:#fff;display:flex;align-items:center;gap:8px;padding:9px 12px;font:700 15px var(--b)}
+#bar[hidden]{display:none}
+#bar span{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;animation:fade .5s}
+#bar button{background:rgba(255,255,255,.25);border:0;color:#fff;border-radius:50%;width:26px;height:26px;cursor:pointer}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}}
+h1{font:800 26px/1.1 var(--h);margin:18px 0 2px}
+.sub{color:var(--muted);margin:0;font-size:15px}
+.hero{background:var(--hero);color:var(--heroink);border-radius:26px;padding:16px;margin:14px 0;display:flex;gap:12px;align-items:center}
+.hero svg{flex:none;width:96px;height:96px}
+.bubble{background:#fff;color:#3b2a14;border-radius:18px;padding:10px 14px;position:relative}
+.bubble:before{content:"";position:absolute;left:-8px;top:28px;border:8px solid transparent;border-right-color:#fff;border-left:0}
+.bubble small{color:#7a6a52;display:block}
+.bubble b{font:800 26px/1.05 var(--h);display:block}
+.bubble p{margin:3px 0 0;font-weight:700;line-height:1.25}
+.alerts{display:grid;gap:8px}
+.alert{background:var(--card);border-radius:14px;border:2px solid var(--c);padding:8px 12px}
+.alert b{font:800 16px var(--h);color:var(--c)}.alert span{display:block;font-size:14px;color:var(--muted)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}
+.chip{flex:none;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font:700 15px var(--b);cursor:pointer}
+.chip[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#fff}
+h2{font:800 18px var(--h);margin:20px 0 8px}
+.list{display:grid;gap:9px}
+.item{display:grid;grid-template-columns:56px 1fr 36px;gap:11px;align-items:center;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:9px 11px}
+.date{background:var(--c);color:#fff;border-radius:14px;text-align:center;padding:5px 0;line-height:1}
+.date b{display:block;font:800 22px var(--h)}.date i{font:700 12px var(--b);font-style:normal}
+.title{font-weight:700;line-height:1.25}.meta{font-size:14px;color:var(--muted);margin-top:2px}.meta em{font-style:normal;font-weight:800;color:var(--c)}
+.tick{width:34px;height:34px;border-radius:50%;border:2.5px solid var(--line);background:transparent;color:#fff;font-size:17px;cursor:pointer}
+.done{opacity:.55}.done .title{text-decoration:line-through}.done .tick{background:var(--holiday);border-color:var(--holiday)}
+.soft{background:transparent}
+details summary{cursor:pointer;font:800 18px var(--h);margin:22px 0 8px}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:12px 14px;margin-top:22px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0}
+.sw{width:50px;height:28px;border-radius:99px;border:0;background:var(--line);position:relative;cursor:pointer;flex:none}
+.sw:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
+.sw[aria-checked=true]{background:var(--holiday)}.sw[aria-checked=true]:after{left:25px}
+.themes{display:flex;gap:10px}.th{width:38px;height:38px;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 2px var(--line);cursor:pointer}
+.th[aria-pressed=true]{box-shadow:0 0 0 3px var(--ink)}
+.note{font-size:13px;color:var(--muted)}
+#pop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:18px}
+#pop[hidden]{display:none}
+.card{background:var(--card);border-radius:28px;max-width:420px;width:100%;padding:18px;text-align:center;animation:pop .45s cubic-bezier(.3,1.6,.5,1);max-height:90vh;overflow:auto}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+.card svg{width:120px;height:120px;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.card h3{font:800 24px var(--h);margin:4px 0}
+.card ul{list-style:none;padding:0;margin:10px 0;text-align:left;display:grid;gap:6px}
+.card li{border-left:6px solid var(--c);background:var(--bg);border-radius:10px;padding:6px 10px;font-weight:700;font-size:15px}
+.go{background:var(--acc);color:#fff;border:0;border-radius:99px;padding:11px 26px;font:800 17px var(--h);cursor:pointer}
+.wrap{position:relative;z-index:1}
+#deco{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.fl{position:absolute;bottom:-50px;font-size:28px;opacity:.3;animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-115vh) rotate(40deg)}}
+.bigN{width:100%;border:0;border-radius:18px;padding:13px;font:800 17px var(--h);background:var(--acc);color:#fff;cursor:pointer;margin-bottom:10px}
+.bigN.on{background:var(--holiday)}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.th{width:auto;height:auto;border-radius:14px;padding:9px 4px;font:800 13px var(--b);border:3px solid transparent;cursor:pointer}
+.th[aria-pressed=true]{border-color:var(--ink);box-shadow:none}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:800;z-index:60;max-width:90vw;text-align:center;display:none}
+button:focus-visible{outline:3px solid var(--class);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
 <body>
+<div id="bar" hidden><span id="barText"></span><button id="barX" aria-label="Close">✕</button></div>
 <div class="wrap">
-  <header>
-    <h1>Fall 2026 reminders</h1>
-    <p id="today"></p>
-  </header>
-
-  <section id="hero"></section>
-  <section id="alerts" class="alerts" aria-live="polite"></section>
-
-  <div class="chips" id="chips" role="group" aria-label="Filter by type"></div>
-
+  <h1>Pip's Fall 2026 reminders</h1>
+  <p class="sub" id="today"></p>
+  <div class="hero" id="hero"></div>
+  <button class="bigN" id="bigN"></button>
+  <div class="alerts" id="alerts"></div>
+  <div class="chips" id="chips"></div>
   <div id="out"></div>
-
-  <footer>
-    United International University · Fall 2026 Trimester. Tick the circle when you finish something. Ticks are saved on this device only.
-  </footer>
+  <div class="panel">
+    <div class="row"><div><b>Notifications</b><div class="note" id="nNote">Pip nudges you when you open this page.</div></div><button class="sw" id="swN" role="switch" aria-checked="false" aria-label="Notifications"></button></div>
+    <div class="row"><div><b>Pop-up when I open</b></div><button class="sw" id="swP" role="switch" aria-checked="true" aria-label="Pop-up"></button></div>
+    <b>Theme</b><div class="tgrid" id="themes"></div>
+  </div>
+  <p class="note">United International University · Fall 2026 Trimester. Ticks and settings are saved on this device only.</p>
 </div>
+<div id="deco"></div><div id="toast" role="status"></div>
+<div id="pop" hidden><div class="card" id="card"></div></div>
 
 <script>
-/* ============================================================
-   EDIT HERE EACH TRIMESTER
-   Format: [start "YYYY-MM-DD", end "YYYY-MM-DD" or null, type, title, note]
-   Types: fee | exam | deadline | class | holiday
-   ============================================================ */
-const TRIMESTER = "Fall 2026";
-const EVENTS = [
-  ["2026-10-24","2026-10-26","deadline","Course advising and registration",""],
-  ["2026-10-25","2026-10-26","class","Open Day Orientation",""],
-  ["2026-10-26",null,"deadline","Last day of advising and registration without fine",""],
-  ["2026-10-27",null,"class","Classes begin",""],
-  ["2026-10-31",null,"deadline","Last day to drop a course with 100% adjustable refund",""],
-  ["2026-11-04",null,"deadline","Last day to apply for Grade Change (Summer 2026 courses)","No application is considered after this date."],
-  ["2026-11-05",null,"class","Regular Saturday class (online)","Thursday follows the Saturday schedule."],
-  ["2026-11-07",null,"holiday","National Revolution and Solidarity Day",""],
-  ["2026-11-08",null,"deadline","Last day of grade submission for Project / Thesis / Internship",""],
-  ["2026-11-09",null,"deadline","Last day to drop a course with 50% adjustable refund","Also last day of advising with a Tk. 500 fine, and grade submission for Summer 2026 incomplete grades."],
-  ["2026-11-12",null,"class","Regular Saturday class (online)","Thursday follows the Saturday schedule."],
-  ["2026-11-22",null,"fee","Last date of 1st installment (40%)","Tk. 500 fine if 40% of tuition and trimester fee is unpaid. Students from ID 252 onwards: Tk. 20,000 at registration, then 40% of the rest."],
-  ["2026-11-26",null,"class","Regular Sunday class (online)","Thursday follows the Sunday schedule."],
-  ["2026-12-05","2026-12-12","exam","Mid-term exam",""],
-  ["2026-12-15",null,"fee","Last date of 2nd installment (70%)","Tk. 500 fine if 70% is unpaid."],
-  ["2026-12-16",null,"holiday","Victory Day",""],
-  ["2026-12-17",null,"class","Regular Wednesday class (online)","Thursday follows the Wednesday schedule."],
-  ["2026-12-23",null,"deadline","Last day of course withdrawal",""],
-  ["2026-12-25",null,"holiday","Christmas Day",""],
-  ["2026-12-31",null,"class","Regular Saturday class (online)","Thursday follows the Saturday schedule."],
-  ["2027-01-13",null,"fee","Last date of 3rd installment (100%)","Tk. 500 fine if full fee is unpaid."],
-  ["2027-01-21","2027-01-24","class","Classes suspended",""],
-  ["2027-01-24",null,"holiday","Shab-e-Barat","Subject to the appearance of the moon."],
-  ["2027-01-25","2027-02-01","exam","Final exam",""],
-  ["2027-02-04",null,"deadline","Last day of grade submission (including Self-Study courses)",""],
-  ["2027-02-09",null,"class","Spring 2027 classes begin",""]
+/* EDIT EACH TRIMESTER: [start, end|null, type, title, note]  types: fee exam deadline class holiday */
+const TRI="Fall 2026";
+const EV=[
+["2026-10-24","2026-10-26","deadline","Course Advising and Registration",""],
+["2026-10-25","2026-10-26","class","Open Day Orientation",""],
+["2026-10-26",null,"deadline","Last day of Course Advising and Registration without fine",""],
+["2026-10-27",null,"class","Classes begin",""],
+["2026-10-31",null,"deadline","Last day to drop course(s) with 100% adjustable refund",""],
+["2026-11-04",null,"deadline","Last day to apply for Grade Change of a Summer 2026 course (if any)","No application will be considered after the deadline."],
+["2026-11-05",null,"class","Regular Saturday class (online)","Thursday follows the Saturday schedule."],
+["2026-11-07",null,"holiday","Holiday: National Revolution and Solidarity Day",""],
+["2026-11-08",null,"deadline","Last day of grade submission for Project / Thesis (Final Year Design Project) / Internship",""],
+["2026-11-09",null,"deadline","Last day to drop course(s) with 50% adjustable refund only",""],
+["2026-11-09",null,"deadline","Last day of Advising and Registration with a fine of Tk. 500",""],
+["2026-11-09",null,"deadline","Last day of grade submission of Incomplete Grades (Summer 2026) by the Department/Program Office",""],
+["2026-11-12",null,"class","Regular Saturday class (online)","Thursday follows the Saturday schedule."],
+["2026-11-22",null,"fee","Last date of 1st Installment (40%)","Tk. 500 fine if 40% of Tuition and Trimester Fee is unpaid. For ID 252 onwards: Tk. 20,000 at registration, then 40% of the remaining fees by this date. Transport/Gym fees (if any) are paid 40%/30%/30% with the installments."],
+["2026-11-26",null,"class","Regular Sunday class (online)","Thursday follows the Sunday schedule."],
+["2026-12-04",null,"deadline","1st Admission Test for Spring 2027 (Fri)",""],
+["2026-12-05","2026-12-12","exam","Mid-Term Exam",""],
+["2026-12-15",null,"fee","Last date of 2nd Installment (70%)","Tk. 500 fine if 70% of Tuition and Trimester Fee is unpaid."],
+["2026-12-16",null,"holiday","Holiday: Victory Day",""],
+["2026-12-17",null,"class","Regular Wednesday class (online)","Thursday follows the Wednesday schedule."],
+["2026-12-23",null,"deadline","Last Day of Course Withdrawal",""],
+["2026-12-23",null,"deadline","Last date of admission for Spring 2027 (1st test)",""],
+["2026-12-25",null,"holiday","Holiday: Christmas Day","The calendar prints 2027, but this is Dec 25, 2026."],
+["2026-12-31",null,"class","Regular Saturday class (online)","Thursday follows the Saturday schedule."],
+["2027-01-13",null,"fee","Last date of 3rd Installment (100%)","Tk. 500 fine if 100% of Tuition and Trimester Fee is unpaid."],
+["2027-01-15",null,"deadline","2nd Admission Test for Spring 2027 (Fri)",""],
+["2027-01-21","2027-01-24","class","Classes will remain suspended",""],
+["2027-01-24",null,"holiday","Holiday: Shab-e-Barat","Subject to the appearance of the moon."],
+["2027-01-25","2027-02-01","exam","Final Exam",""],
+["2027-01-31",null,"deadline","Last date of admission for Spring 2027 (2nd test)",""],
+["2027-02-04",null,"deadline","Last day of grade submission (including Self-Study courses)",""],
+["2027-02-09",null,"class","Spring 2027 classes begin (Tue)",""]
 ];
-const TYPES = {
-  fee:{label:"Fees",color:"var(--fee)"},
-  exam:{label:"Exams",color:"var(--exam)"},
-  deadline:{label:"Deadlines",color:"var(--deadline)"},
-  class:{label:"Classes",color:"var(--class)"},
-  holiday:{label:"Holidays",color:"var(--holiday)"}
-};
-/* ============================================================ */
-
-const TZ = "Asia/Dhaka";
-const DAY = 86400000;
-const toUTC = s => { const [y,m,d] = s.split("-").map(Number); return Date.UTC(y,m-1,d); };
-const todayUTC = () => toUTC(new Intl.DateTimeFormat("en-CA",{timeZone:TZ}).format(new Date()));
-const fmt = (t,opt) => new Intl.DateTimeFormat("en-GB",Object.assign({timeZone:"UTC"},opt)).format(t);
-
-let filter = "all";
-let done = {};
-try { done = JSON.parse(localStorage.getItem("uiu-done") || "{}"); } catch(e) {}
-const saveDone = () => { try { localStorage.setItem("uiu-done", JSON.stringify(done)); } catch(e) {} };
-
-const events = EVENTS.map((e,i) => ({
-  id: TRIMESTER + i, s: toUTC(e[0]), e: toUTC(e[1] || e[0]),
-  type: e[2], title: e[3], note: e[4], range: !!e[1]
-}));
-
-function rel(ev, today){
-  if (today >= ev.s && today <= ev.e){
-    if (!ev.range) return {n:0, text:"Today", tone:"now"};
-    const left = Math.round((ev.e - today)/DAY);
-    return {n:0, text: left === 0 ? "Ends today" : "Ongoing, ends in " + left + (left===1?" day":" days"), tone:"now"};
-  }
-  const d = Math.round((ev.s - today)/DAY);
-  if (d === 1) return {n:1, text:"Tomorrow", tone:"soon"};
-  if (d > 1) return {n:d, text:"In " + d + " days", tone: d <= 3 ? "soon" : "later"};
-  const ago = Math.round((today - ev.e)/DAY);
-  return {n:-ago, text: ago === 1 ? "Yesterday" : ago + " days ago", tone:"past"};
+const TY={fee:["Fees","var(--fee)","💰"],exam:["Exams","var(--exam)","📝"],deadline:["Deadlines","var(--deadline)","⏰"],class:["Classes","var(--class)","📚"],holiday:["Holidays","var(--holiday)","🎉"]};
+const THEMES={
+sunny:{n:"Sunny",e:"☀️",bg:"#fff7e0",card:"#fff",ink:"#3b2a14",muted:"#7a6a52",line:"#f0dfb4",hero:"#ffb703",hi:"#3b2a14",acc:"#fb8500",p:"#ffd166",a:"",f:["☀️","🌼","🍯"]},
+robocat:{n:"Robo Cat",e:"🔔",bg:"#dff3ff",card:"#fff",ink:"#08305a",muted:"#4b6b86",line:"#a9d8f5",hero:"#0a8fe0",hi:"#fff",acc:"#e5162b",p:"#2aa8f2",a:"cat",f:["🔔","🐾","🌀","🥠"]},
+spark:{n:"Spark Mouse",e:"⚡",bg:"#fff6b8",card:"#fff",ink:"#3a2d00",muted:"#7a6a1f",line:"#f3e06a",hero:"#ffd60a",hi:"#3a2d00",acc:"#e63946",p:"#ffe44d",a:"mouse",f:["⚡","🍅","🌟"]},
+angel:{n:"Angel",e:"👼",bg:"#f4f9ff",card:"#fff",ink:"#38425a",muted:"#6b7a99",line:"#d6e4f7",hero:"#f6d365",hi:"#4a3b00",acc:"#d4a200",p:"#fff",a:"halo",f:["👼","✨","☁️","🕊️"]},
+garden:{n:"Garden",e:"🌻",bg:"#eaf8e3",card:"#fff",ink:"#1f3d1a",muted:"#55734f",line:"#c4e8b6",hero:"#4cb85c",hi:"#fff",acc:"#e0457b",p:"#a8e6a1",a:"flower",f:["🌸","🌻","🦋","🌷"]},
+sakura:{n:"Sakura",e:"🌸",bg:"#ffeef4",card:"#fff",ink:"#4a1c2e",muted:"#8a5069",line:"#f9c8da",hero:"#f06292",hi:"#fff",acc:"#c2185b",p:"#ffc2d6",a:"flower",f:["🌸","🎏","🍡"]},
+ocean:{n:"Ocean",e:"🐠",bg:"#e0f4ff",card:"#fff",ink:"#0b2a44",muted:"#4b6b86",line:"#b9e0f7",hero:"#0ea5e9",hi:"#fff",acc:"#0369a1",p:"#7dd3fc",a:"",f:["🐠","🐚","🫧","🐳"]},
+candy:{n:"Candy",e:"🍭",bg:"#ffe4f1",card:"#fff",ink:"#4a1033",muted:"#8a4f72",line:"#fbc4de",hero:"#ff5fa2",hi:"#fff",acc:"#d6247a",p:"#ffa8cf",a:"",f:["🍭","🍬","🧁"]},
+forest:{n:"Forest",e:"🍄",bg:"#e6f6e4",card:"#fff",ink:"#12341c",muted:"#4c6b53",line:"#bfe3bb",hero:"#2f9e44",hi:"#fff",acc:"#1b7a31",p:"#8de29b",a:"",f:["🍃","🦊","🍄"]},
+night:{n:"Night",e:"🌙",d:1,bg:"#12122b",card:"#1d1d40",ink:"#f1efff",muted:"#a6a3d1",line:"#2e2e5e",hero:"#6d5dfc",hi:"#fff",acc:"#a99bff",p:"#b8aaff",a:"",f:["⭐","🌙","✨"]},
+galaxy:{n:"Galaxy",e:"🪐",d:1,bg:"#0b0720",card:"#1a1238",ink:"#f3ecff",muted:"#b3a6e0",line:"#33265f",hero:"#8e2de2",hi:"#fff",acc:"#ff4fd8",p:"#c9a7ff",a:"",f:["🪐","🌟","☄️","🚀"]},
+neon:{n:"Neon",e:"💚",d:1,bg:"#07130f",card:"#0f2a22",ink:"#e9fff6",muted:"#8fd9bd",line:"#1b4a3b",hero:"#00e5a0",hi:"#00160f",acc:"#ff2d95",p:"#5dffc7",a:"",f:["⚡","💚","💗"]}};
+const DARKC={"--fee":"#fbbf24","--exam":"#c4b5fd","--deadline":"#fb7185","--class":"#38bdf8","--holiday":"#4ade80"};
+const ACC={
+cat:'<path d="M20 62h14M20 70l13-3M88 62H74M88 70l-13-3" stroke="#222" stroke-width="2.5" stroke-linecap="round"/><circle cx="54" cy="58" r="5" fill="#e5162b"/><rect x="30" y="88" width="48" height="6" rx="3" fill="#e5162b"/><circle cx="54" cy="97" r="6" fill="#ffd60a" stroke="#b8860b" stroke-width="2"/>',
+mouse:'<circle cx="22" cy="24" r="6" fill="#222"/><circle cx="86" cy="24" r="6" fill="#222"/><circle cx="24" cy="66" r="8" fill="#e63946"/><circle cx="84" cy="66" r="8" fill="#e63946"/><path d="M96 80l10-12-4 10h8l-12 14 4-12z" fill="#ffd60a" stroke="#8a6d00"/>',
+halo:'<path d="M16 66q-24-18-8-38q10 14 18 22z" fill="#fff" stroke="#cfe0f5" stroke-width="2"/><path d="M92 66q24-18 8-38q-10 14-18 22z" fill="#fff" stroke="#cfe0f5" stroke-width="2"/><ellipse cx="54" cy="12" rx="22" ry="6" fill="none" stroke="#f6c800" stroke-width="5"/>',
+flower:'<g fill="#ff8fc1"><circle cx="54" cy="6" r="6"/><circle cx="54" cy="26" r="6"/><circle cx="44" cy="16" r="6"/><circle cx="64" cy="16" r="6"/></g><circle cx="54" cy="16" r="5" fill="#ffd60a"/>'};
+const acc=()=>ACC[THEMES[theme].a]||"";
+function applyTheme(){
+  const T=THEMES[theme],st=document.body.style;
+  [["--bg","bg"],["--card","card"],["--ink","ink"],["--muted","muted"],["--line","line"],["--hero","hero"],["--heroink","hi"],["--acc","acc"]].forEach(([v,k])=>st.setProperty(v,T[k]));
+  Object.entries(DARKC).forEach(([v,c])=>T.d?st.setProperty(v,c):st.removeProperty(v));
+  const d=document.getElementById("deco");if(d.dataset.t!==theme){d.dataset.t=theme;
+    d.innerHTML=Array.from({length:12},(_,i)=>`<span class="fl" style="left:${(i*8.5+3)%96}%;animation-duration:${14+(i*5)%11}s;animation-delay:-${(i*3)%14}s;font-size:${22+(i%3)*8}px">${T.f[i%T.f.length]}</span>`).join("")}
 }
-const dateLabel = ev => ev.range
-  ? fmt(ev.s,{day:"numeric",month:"short"}) + " – " + fmt(ev.e,{day:"numeric",month:"short"})
-  : fmt(ev.s,{weekday:"long",day:"numeric",month:"short"});
 
-function itemHTML(ev, today, soft){
-  const r = rel(ev, today), t = TYPES[ev.type];
-  const d = new Date(ev.s);
-  return `<div class="item ${done[ev.id]?"done":""} ${soft?"soft":""}" style="--c:${t.color}">
-    <div class="date"><b>${d.getUTCDate()}</b><i>${fmt(ev.s,{month:"short"})}</i></div>
-    <div><div class="title">${ev.title}</div>
-      <div class="meta"><em>${r.text}</em> · ${dateLabel(ev)}${ev.note ? "<br>"+ev.note : ""}</div></div>
-    <button data-id="${ev.id}" aria-label="Mark done" aria-pressed="${!!done[ev.id]}">${done[ev.id] ? "✓" : ""}</button>
-  </div>`;
+const DAY=864e5,TZ="Asia/Dhaka";
+const U=s=>{const[a,b,c]=s.split("-").map(Number);return Date.UTC(a,b-1,c)};
+const now=()=>U(new Intl.DateTimeFormat("en-CA",{timeZone:TZ}).format(new Date()));
+const F=(t,o)=>new Intl.DateTimeFormat("en-GB",{timeZone:"UTC",...o}).format(t);
+const ld=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let done=ld("uiu-done",{}),filter="all",theme=ld("uiu-theme","sunny"),notifOn=ld("uiu-notif",false),popOn=ld("uiu-pop",true);
+const E=EV.map((e,i)=>({id:TRI+i,s:U(e[0]),e:U(e[1]||e[0]),type:e[2],title:e[3],note:e[4],range:!!e[1]}));
+
+function rel(v,t){
+  if(t>=v.s&&t<=v.e){if(!v.range)return{n:0,x:"Today"};const l=Math.round((v.e-t)/DAY);return{n:0,x:l?"Happening now, "+l+(l==1?" day":" days")+" left":"Ends today"}}
+  const d=Math.round((v.s-t)/DAY);
+  if(d>0)return{n:d,x:d==1?"Tomorrow":"In "+d+" days"};
+  const a=-d-(v.e-v.s)/DAY+0;const g=Math.round((t-v.e)/DAY);return{n:-g,x:g==1?"Yesterday":g+" days ago"};
+}
+const dl=v=>v.range?F(v.s,{day:"numeric",month:"short"})+" to "+F(v.e,{day:"numeric",month:"short"}):F(v.s,{weekday:"long",day:"numeric",month:"short"});
+
+function pip(mood,col){
+  const eyes={alert:'<circle cx="40" cy="48" r="9" fill="#fff"/><circle cx="68" cy="48" r="9" fill="#fff"/><circle cx="40" cy="49" r="4" fill="#222"/><circle cx="68" cy="49" r="4" fill="#222"/>',
+    happy:'<path d="M32 50q8-12 16 0M60 50q8-12 16 0" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/>',
+    chill:'<path d="M32 48q8 8 16 0M60 48q8 8 16 0" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/>'};
+  const mouth={alert:'<ellipse cx="54" cy="72" rx="7" ry="9" fill="#7a1f1f"/>',happy:'<path d="M38 66q16 22 32 0z" fill="#7a1f1f"/>',chill:'<path d="M42 70q12 8 24 0" stroke="#222" stroke-width="4" fill="none" stroke-linecap="round"/>'};
+  const extra={alert:'<path d="M88 30q6 8 0 14q-6-6 0-14z" fill="#7dd3fc"/>',happy:'<path d="M54 4l5 11 12 1-9 8 3 12-11-7-11 7 3-12-9-8 12-1z" fill="#fde047" transform="translate(0,-2) scale(.9) translate(6,0)"/>',chill:'<text x="86" y="26" font-size="16" font-weight="800" fill="#6b7280">z</text>'};
+  return `<svg viewBox="0 0 108 108" aria-hidden="true"><ellipse cx="54" cy="100" rx="30" ry="5" fill="rgba(0,0,0,.15)"/>
+  <circle cx="22" cy="30" r="12" fill="${col}"/><circle cx="86" cy="30" r="12" fill="${col}"/><circle cx="22" cy="30" r="6" fill="#ffb3c6"/><circle cx="86" cy="30" r="6" fill="#ffb3c6"/>
+  <ellipse cx="54" cy="58" rx="40" ry="38" fill="${col}"/><ellipse cx="54" cy="66" rx="28" ry="22" fill="rgba(255,255,255,.35)"/>
+  ${eyes[mood]}<circle cx="26" cy="64" r="6" fill="#ff8fab" opacity=".7"/><circle cx="82" cy="64" r="6" fill="#ff8fab" opacity=".7"/>${mouth[mood]}${extra[mood]}${acc()}</svg>`;
+}
+
+function state(){
+  const t=now(),up=E.filter(v=>!done[v.id]&&v.e>=t).sort((a,b)=>a.s-b.s);
+  const key=up.filter(v=>v.type!="holiday"&&v.type!="class"||/begin|suspended/.test(v.title));
+  const focus=key[0]||up[0];
+  const near=up.filter(v=>v.type!="class"&&rel(v,t).n<=3);
+  const mood=near.some(v=>v.type!="holiday")?"alert":(focus&&rel(focus,t).n<=7?"happy":"chill");
+  return{t,up,focus,near,mood};
+}
+const accent=()=>getComputedStyle(document.body).getPropertyValue("--acc").trim()||"#fb8500";
+const body=()=>document.body;
+const pipCol=()=>THEMES[theme].p;
+
+function item(v,t,soft){
+  const r=rel(v,t),y=TY[v.type],d=new Date(v.s);
+  return `<div class="item ${done[v.id]?"done":""} ${soft?"soft":""}" style="--c:${y[1]}"><div class="date"><b>${d.getUTCDate()}</b><i>${F(v.s,{month:"short"})}</i></div>
+  <div><div class="title">${y[2]} ${v.title}</div><div class="meta"><em>${r.x}</em> · ${dl(v)}${v.note?"<br>"+v.note:""}</div></div>
+  <button class="tick" data-id="${v.id}" aria-label="Mark done" aria-pressed="${!!done[v.id]}">${done[v.id]?"✓":""}</button></div>`;
 }
 
 function render(){
-  const today = todayUTC();
-  document.getElementById("today").textContent = fmt(today,{weekday:"long",day:"numeric",month:"long",year:"numeric"});
-
-  const open = events.filter(e => !done[e.id]);
-  const upcoming = open.filter(e => e.e >= today).sort((a,b) => a.s - b.s);
-  const important = upcoming.filter(e => e.type !== "holiday" && e.type !== "class" || e.title.startsWith("Classes begin") || e.title.includes("suspended"));
-
-  /* hero: the most pressing thing right now */
-  const focus = upcoming.filter(e => e.type !== "holiday" && !e.title.startsWith("Regular"))[0] || upcoming[0];
-  const hero = document.getElementById("hero");
-  if (focus){
-    const r = rel(focus, today), t = TYPES[focus.type];
-    const more = upcoming.filter(e => e !== focus && e.s === focus.s && e.type !== "holiday").length;
-    hero.innerHTML = `<div class="hero ${r.n > 7 ? "calm":""}"><small>Next up · ${t.label}</small>
-      <p class="when">${r.text}</p><p class="what">${focus.title}</p>
-      <p class="sub">${dateLabel(focus)}${more ? " · plus " + more + " more the same day" : ""}</p></div>`;
-  } else {
-    hero.innerHTML = `<div class="hero calm"><p class="when">All clear</p><p class="sub">Nothing left on this trimester's calendar.</p></div>`;
-  }
-
-  /* alerts: anything due today, tomorrow or in the next 3 days, other than the hero */
-  const alerts = upcoming.filter(e => e !== focus && rel(e,today).n <= 3 && e.type !== "class");
-  document.getElementById("alerts").innerHTML = alerts.map(e => {
-    const r = rel(e,today);
-    return `<div class="alert" style="--c:${TYPES[e.type].color}"><b>${r.text}: ${e.title}</b><span>${dateLabel(e)}</span></div>`;
-  }).join("");
-
-  /* chips */
-  document.getElementById("chips").innerHTML =
-    [["all","All"]].concat(Object.entries(TYPES).map(([k,v]) => [k,v.label]))
-      .map(([k,l]) => `<button class="chip" data-f="${k}" aria-pressed="${filter===k}">${l}</button>`).join("");
-
-  /* lists */
-  const match = e => filter === "all" || e.type === filter;
-  const all = events.slice().sort((a,b) => a.s - b.s).filter(match);
-  const week = all.filter(e => e.e >= today && e.s - today <= 7*DAY);
-  const later = all.filter(e => e.s - today > 7*DAY);
-  const past = all.filter(e => e.e < today).reverse();
-
-  let html = "";
-  html += `<h2>This week</h2><div class="list">${week.length ? week.map(e => itemHTML(e,today)).join("") : '<div class="empty">Nothing in the next 7 days.</div>'}</div>`;
-  if (later.length) html += `<h2>Coming later</h2><div class="list">${later.map(e => itemHTML(e,today)).join("")}</div>`;
-  if (past.length) html += `<details><summary>Already passed (${past.length})</summary><div class="list">${past.map(e => itemHTML(e,today,true)).join("")}</div></details>`;
-  document.getElementById("out").innerHTML = html;
+  applyTheme();
+  const{t,focus,near,mood}=state();
+  document.getElementById("today").textContent=F(t,{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  const msg={alert:"Heads up!",happy:"Looking good!",chill:"All calm for now."}[mood];
+  document.getElementById("hero").innerHTML=pip(mood,pipCol())+(focus?`<div class="bubble"><small>${msg} Next up</small><b>${rel(focus,t).x}</b><p>${TY[focus.type][2]} ${focus.title}</p></div>`:`<div class="bubble"><b>All done!</b><p>Nothing left this trimester.</p></div>`);
+  document.getElementById("alerts").innerHTML=near.filter(v=>v!==focus).map(v=>`<div class="alert" style="--c:${TY[v.type][1]}"><b>${rel(v,t).x}: ${v.title}</b><span>${dl(v)}</span></div>`).join("");
+  document.getElementById("chips").innerHTML=[["all","All"],...Object.entries(TY).map(([k,v])=>[k,v[2]+" "+v[0]])].map(([k,l])=>`<button class="chip" data-f="${k}" aria-pressed="${filter==k}">${l}</button>`).join("");
+  const all=E.slice().sort((a,b)=>a.s-b.s).filter(v=>filter=="all"||v.type==filter);
+  const wk=all.filter(v=>v.e>=t&&v.s-t<=7*DAY),lt=all.filter(v=>v.s-t>7*DAY),ps=all.filter(v=>v.e<t).reverse();
+  document.getElementById("out").innerHTML=`<h2>This week</h2><div class="list">${wk.length?wk.map(v=>item(v,t)).join(""):'<p class="note">Nothing in the next 7 days. Pip is napping.</p>'}</div>`+
+    (lt.length?`<h2>Coming later</h2><div class="list">${lt.map(v=>item(v,t)).join("")}</div>`:"")+
+    (ps.length?`<details><summary>Already passed (${ps.length})</summary><div class="list">${ps.map(v=>item(v,t,1)).join("")}</div></details>`:"");
+  document.getElementById("themes").innerHTML=Object.entries(THEMES).map(([k,c])=>`<button class="th" data-th="${k}" style="background:${c.hero};color:${c.hi}" aria-pressed="${theme==k}">${c.e} ${c.n}</button>`).join("");
+  document.getElementById("swN").setAttribute("aria-checked",notifOn);
+  document.getElementById("swP").setAttribute("aria-checked",popOn);
+  const bn=document.getElementById("bigN"),ok=notifOn&&"Notification" in window&&Notification.permission==="granted";
+  bn.className="bigN"+(ok?" on":"");bn.textContent=ok?"🔔 Notifications are ON · tap to send a test":"🔔 Turn on notifications";
+  bar();
 }
 
-document.addEventListener("click", ev => {
-  const chip = ev.target.closest(".chip");
-  if (chip){ filter = chip.dataset.f; render(); return; }
-  const btn = ev.target.closest(".item button");
-  if (btn){ const id = btn.dataset.id; done[id] ? delete done[id] : done[id] = true; saveDone(); render(); }
+/* notification bar: rotates through what is due soon */
+let bt;
+function bar(){
+  clearInterval(bt);
+  const{t,up}=state(),list=up.filter(v=>v.type!="class"&&rel(v,t).n<=7);
+  const el=document.getElementById("bar");
+  if(!list.length||sessionStorage.getItem("barX")){el.hidden=true;return}
+  el.hidden=false;let i=0;
+  const show=()=>{const v=list[i%list.length],s=document.getElementById("barText");s.style.animation="none";void s.offsetWidth;s.style.animation="";s.textContent=TY[v.type][2]+" "+rel(v,t).x+": "+v.title;i++};
+  show();if(list.length>1)bt=setInterval(show,4000);
+}
+
+/* pop-up on open */
+function popup(){
+  const{t,up,focus,near,mood}=state();
+  const h=+new Intl.DateTimeFormat("en-GB",{timeZone:TZ,hour:"numeric",hour12:false}).format(new Date());
+  const hi=h<5?"Still up?":h<12?"Good morning!":h<17?"Good afternoon!":"Good evening!";
+  const list=near.length?near:(focus?[focus]:[]);
+  document.getElementById("card").innerHTML=pip(mood,pipCol())+`<h3>${hi} Pip here!</h3><div class="note" style="font-size:15px">${near.length?"Don't forget these:":"Nothing urgent. Next on the list:"}</div>
+  <ul>${list.slice(0,5).map(v=>`<li style="--c:${TY[v.type][1]}">${TY[v.type][2]} ${rel(v,t).x}: ${v.title}</li>`).join("")||"<li>Trimester finished!</li>"}</ul><button class="go" id="go">Got it!</button>`;
+  document.getElementById("pop").hidden=false;
+  document.getElementById("go").focus();
+}
+
+/* notifications: service worker first (needed on Android Chrome), plain Notification as fallback */
+const ICON="data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🐾</text></svg>');
+async function sendNote(title,body){
+  if(!("Notification" in window)||Notification.permission!=="granted")return false;
+  try{if("serviceWorker" in navigator){const r=await Promise.race([navigator.serviceWorker.ready,new Promise((_,j)=>setTimeout(j,2500))]);
+    await r.showNotification(title,{body,icon:ICON,badge:ICON,vibrate:[120,60,120],tag:"pip"});return true}}catch(e){}
+  try{new Notification(title,{body,icon:ICON});return true}catch(e){}
+  return false;
+}
+function notify(){
+  if(!notifOn)return;const{t,focus,near}=state(),v=near[0]||focus;if(!v)return;
+  sendNote("Pip's reminder",TY[v.type][2]+" "+rel(v,t).x+": "+v.title);
+}
+let tt;function toast(m){const e=document.getElementById("toast");e.textContent=m;e.style.display="block";clearTimeout(tt);tt=setTimeout(()=>e.style.display="none",4500)}
+async function toggleN(big){
+  if(!("Notification" in window)){toast("This browser can't show notifications. Pip still pops up here.");return}
+  if(notifOn&&Notification.permission==="granted"){
+    if(big){const ok=await sendNote("Test from Pip 🐾","Notifications are working!");toast(ok?"Test sent! Check your notifications.":"Couldn't show a system notification. Check this site's settings.");return}
+    notifOn=false;sv("uiu-notif",false);render();toast("Notifications off");return}
+  const p=await Notification.requestPermission();notifOn=p==="granted";sv("uiu-notif",notifOn);render();
+  if(notifOn){const ok=await sendNote("It worked! 🎉","Pip will remind you whenever you open your calendar.");toast(ok?"Notifications on! A test was sent.":"On, but the system notice was blocked. Check site settings.")}
+  else toast("Blocked. Allow notifications for this site in your browser settings.");
+}
+
+document.addEventListener("click",e=>{
+  const c=e.target.closest(".chip");if(c){filter=c.dataset.f;render();return}
+  const k=e.target.closest(".tick");if(k){const id=k.dataset.id;done[id]?delete done[id]:done[id]=1;sv("uiu-done",done);render();return}
+  const th=e.target.closest(".th");if(th){theme=th.dataset.th;sv("uiu-theme",theme);render();return}
+  if(e.target.id=="swP"){popOn=!popOn;sv("uiu-pop",popOn);render();return}
+  if(e.target.id=="swN"||e.target.id=="bigN"){toggleN(e.target.id=="bigN");return}
+  if(e.target.id=="go"||e.target.id=="pop"){document.getElementById("pop").hidden=true}
+  if(e.target.id=="barX"){try{sessionStorage.setItem("barX","1")}catch(x){}document.getElementById("bar").hidden=true;clearInterval(bt)}
 });
-/* refresh whenever the tab comes back into view, so the date is always current */
-document.addEventListener("visibilitychange", () => { if (!document.hidden) render(); });
-render();
+document.addEventListener("keydown",e=>{if(e.key=="Escape")document.getElementById("pop").hidden=true});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden){render();if(popOn)popup();notify()}});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+render();if(popOn)popup();notify();
 </script>
 </body>
 </html>
